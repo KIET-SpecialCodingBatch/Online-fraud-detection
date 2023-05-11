@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fraud Detection</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f1f1f1;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fraud Detection</h1>
+    <form method="post" action="/predict">
+      <label for="type">Type:</label>
+      <input type="text" id="type" name="type">
+      <label for="amount">Amount:</label>
+      <input type="text" id="amount" name="amount">
+      <label for="old_balance">Old Balance:</label>
+      <input type="text" id="old_balance" name="old_balance">
+      <label for="new_balance">New Balance:</label>
+      <input type="text" id="new_balance" name="new_balance">
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

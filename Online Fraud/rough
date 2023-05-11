@@ -1,0 +1,40 @@
+# Import necessary libraries
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+from flask import Flask, request, jsonify
+
+# Load the dataset
+df = pd.read_csv('online_data_set.csv')
+
+# Train a Decision Tree classifier
+clf = DecisionTreeClassifier()
+clf.fit(df.drop('is_fraud', axis=0), df['is_fraud'])
+
+# Create a Flask web application
+app = Flask(__name__)
+
+# Define a function to predict if a transaction is fraudulent or not
+@app.route('/predict', methods=['POST'])
+def predict():
+    # Get the input data from the request
+    data = request.get_json(force=True)
+    payment = data['payment']
+    transfer = data['transfer']
+    cash_out = data['cash_out']
+    debit = data['debit']
+    cash_in = data['cash_in']
+
+    # Create a DataFrame with the input data
+    input_data = pd.DataFrame({'payment': [payment], 'transfer': [transfer], 'cash_out': [cash_out], 'debit': [debit], 'cash_in': [cash_in]})
+
+    # Use the trained classifier to predict if the transaction is fraudulent or not
+    pred = clf.predict(input_data)
+
+    # Return the prediction as a JSON response
+    response = {'is_fraud': bool(pred[0])}
+    return jsonify(response)
+
+# Start the Flask application
+if __name__ == '__main__':
+    app.run()
